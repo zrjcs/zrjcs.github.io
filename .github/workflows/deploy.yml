@@ -31,8 +31,11 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          submodules: true
+
+      - name: Init private submodule
+        run: |
+          git config --global --unset-all url.https://github.com/.insteadOf
+          git submodule update --init --recursive
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
