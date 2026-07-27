@@ -22,10 +22,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Setup deploy key for submodule
-        uses: webfactory/ssh-agent@v0.9.0
-        with:
-          ssh-private-key: ${{ secrets.SUBMODULE_DEPLOY_KEY }}
+      - name: Setup SSH for private submodule
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SUBMODULE_DEPLOY_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan github.com >> ~/.ssh/known_hosts 2>/dev/null
 
       - name: Checkout
         uses: actions/checkout@v4
