@@ -34,7 +34,7 @@ jobs:
 
       - name: Init private submodule
         run: |
-          git config --global --unset-all url.https://github.com/.insteadOf
+          git config --global --unset-all url.https://github.com/.insteadOf || true
           git submodule update --init --recursive
 
       - name: Setup Node.js
